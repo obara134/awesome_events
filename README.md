@@ -1,24 +1,28 @@
-# README
+# Awesome Event
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+勉強会などの予定を作成し募集をかける。また、それを見た人が参加表明をできる
 
-Things you may want to cover:
+### サイトテーマ
+デザインを整えて閲覧しやすいサイトにする
 
-* Ruby version
+### テーマを選んだ理由
+ユーザーが使いやすいサイトにするため
 
-* System dependencies
+### ターゲットユーザ
+イベントを開催したい人。またそのイベントに参加したい人
 
-* Configuration
+### 主な利用シーン
+イベントの作成と参加
 
-* Database creation
+## チャレンジ要素一覧
+https://docs.google.com/spreadsheets/d/1fKLce8jVIDD7Bljnwiw9eLto8XHIDh7vosQRh15a6hY/edit#gid=0
+## 開発環境
+- OS：Mac
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+今はなし
