@@ -16,9 +16,10 @@
 イベントを開催して会社のことを知って欲しい企業。また、その企業に興味をもった人
 
 ### 主な利用シーン
-イベントを開催と開催予定のイベントを調べ参加の表明をするとき。
+イベントの開催と開催予定のイベントを調べ参加の表明をするとき。
 
 ## 設計書
+
 
 ## 機能一覧
 https://docs.google.com/spreadsheets/d/1fKLce8jVIDD7Bljnwiw9eLto8XHIDh7vosQRh15a6hY/edit#gid=0
