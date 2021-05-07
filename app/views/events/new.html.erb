@@ -1,6 +1,15 @@
 <% now = Time.zone.now %>
 
 <h1>イベント作成</h1>
+  <% if @event.errors.any? %>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li style="color:red">
+          <%= message %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
 <%= form_with model: @event, local:true do |f| %>
 

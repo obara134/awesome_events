@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      event:
+        name: イベント名
+        place: 開催場所
+        start_at: 開催時間
+        end_at: 終了時間
+        introduction: イベント詳細
