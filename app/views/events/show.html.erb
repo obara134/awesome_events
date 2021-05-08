@@ -1,40 +1,80 @@
 <div class="container">
   <h1 class="mt-5 mb-5"><%= @event.name %></h1>
-    <div class="row">
-      <div class="col-8">
-        <div class="card mb-4">
-          <h5 class="card-header">イベント内容</h5>
-          <div class="card-text">
-            <p class="mt-3"><%= @event.introduction %></p>
-          </div>
-        </div>
-
-        <div class="card mb-4">
-          <h5 class="card-header">開催時間</h5>
-          <div class="card-text">
-            <p class="mt-3"><%= l(@event.start_at, format: :long) %> ~ <%= l(@event.end_at, format: :long) %> </p>
-          </div>
-        </div>
-
-        <div class="card mb-4">
-          <h5 class="card-header">開催場所</h5>
-          <div class="card-text">
-            <p class="mt-3"><%= @event.place %></p>
-          </div>
-        </div>
-
-        <div class="card mb-2">
-          <h5 class="card-header">主催者</h5>
-          <div class="card-text">
-            <p class="mt-3"><%= @event.user.name %></p>
-          </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="card mb-4">
+        <h5 class="card-header">イベント内容</h5>
+        <div class="card-text">
+          <p class="mt-3"><%= @event.introduction %></p>
         </div>
       </div>
-      <div class="col-4">
-        <% if @event.user == current_user %>
-          <%= link_to "イベントを編集する", edit_event_path(@event.id), class: "btn btn-info btn-lg btn-block" %>
-          <%= link_to "イベントを削除する", event_path(@event.id), class: "btn btn-danger btn-lg btn-block", method: :delete, "data-confirm" => "本当に削除しますか？" %>
-        <% end %>
+
+      <div class="card mb-4">
+        <h5 class="card-header">開催時間</h5>
+        <div class="card-text">
+          <p class="mt-3"><%= l(@event.start_at, format: :long) %> ~ <%= l(@event.end_at, format: :long) %> </p>
+        </div>
       </div>
+
+      <div class="card mb-4">
+        <h5 class="card-header">開催場所</h5>
+        <div class="card-text">
+          <p class="mt-3"><%= @event.place %></p>
+        </div>
+      </div>
+
+      <div class="card mb-2">
+        <h5 class="card-header">主催者</h5>
+        <div class="card-text">
+          <p class="mt-3"><%= @event.user.name %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <% if @event.user == current_user %>
+        <%= link_to "イベントを編集する", edit_event_path(@event.id), class: "btn btn-info btn-lg btn-block" %>
+        <%= link_to "イベントを削除する", event_path(@event.id), class: "btn btn-danger btn-lg btn-block", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#createTicket">
+          参加する
+        </button>
+
+        <div class="modal fade" id="createTicket">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">参加コメント</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%= form_with model: @event.tickets, url: event_tickets_path(@event.id) do |f| %>
+                <div class="modal-body">
+                  <% if @event.errors.any? %>
+                    <ul>
+                      <% @event.errors.full_messages.each do |message| %>
+                        <li style="color:red">
+                          <%= message %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                  <%= f.text_field :comment, class: "form-control" %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                  <%= f.button "送信", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <%= link_to "参加する", root_path, class: "btn btn-primary btn-lg btn-block" %>
+      <% end %>
+
+    </div>
   </div>
 </div>

@@ -7,3 +7,6 @@ ja:
         start_at: 開催時間
         end_at: 終了時間
         introduction: イベント詳細
+
+      ticket:
+        comment: コメント
