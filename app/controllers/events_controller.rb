@@ -17,6 +17,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @ticket_comment = Ticket.new
   end
 
   def edit

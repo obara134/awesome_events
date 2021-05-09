@@ -31,6 +31,12 @@
       </div>
     </div>
     <div class="col-4">
+      <% if flash[:notice] %>
+        <p style="color:red" id="notice">
+          <%= flash[:notice] %>
+        </p>
+      <% end %>
+
       <% if @event.user == current_user %>
         <%= link_to "イベントを編集する", edit_event_path(@event.id), class: "btn btn-info btn-lg btn-block" %>
         <%= link_to "イベントを削除する", event_path(@event.id), class: "btn btn-danger btn-lg btn-block", method: :delete, "data-confirm" => "本当に削除しますか？" %>
@@ -50,7 +56,8 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <%= form_with model: @event.tickets, url: event_tickets_path(@event.id) do |f| %>
+
+              <%= form_with(model:[@event,@ticket_comment], local: true) do |f| %>
                 <div class="modal-body">
                   <% if @event.errors.any? %>
                     <ul>
@@ -61,19 +68,25 @@
                       <% end %>
                     </ul>
                   <% end %>
-                  <%= f.text_field :comment, class: "form-control" %>
+                  <%= f.text_field :comment, class: "form-control", placeholder: "コメントをここに" %>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                  <%= f.button "送信", class: "btn btn-primary" %>
+                  <%= f.submit "送信", class: "btn btn-primary" %>
                 </div>
               <% end %>
+
             </div>
           </div>
         </div>
       <% else %>
         <%= link_to "参加する", root_path, class: "btn btn-primary btn-lg btn-block" %>
       <% end %>
+
+      <% @event.tickets.each do |tickets| %>
+        <%= tickets.user.name %>
+      <% end %>
+
 
     </div>
   </div>

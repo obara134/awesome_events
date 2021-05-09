@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_080015) do
   create_table "tickets", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id", null: false
-    t.string "comment"
+    t.string "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
