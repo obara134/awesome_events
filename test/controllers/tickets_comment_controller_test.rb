@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TicketsControllerTest < ActionDispatch::IntegrationTest
+class TicketsCommentControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
