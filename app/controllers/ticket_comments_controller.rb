@@ -9,7 +9,8 @@ class TicketCommentsController < ApplicationController
   end
 
   def destroy
-    TicketComment.find_by(id: params[:id], event_id: params[:event_id]).destroy
+    current_user.ticket_comments.where(event_id: params[:event_id]).destroy_all
+    # TicketComment.find_by(id: params[:id], event_id: params[:event_id]).destroy
     redirect_to event_path(params[:event_id])
   end
 
