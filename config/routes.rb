@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+  get 'search/search'
   devise_for :users
 
   root to: "homes#top"
@@ -6,5 +8,9 @@ Rails.application.routes.draw do
   resources :events do
     resources :ticket_comments, only: [:create, :destroy]
   end
+
+  get 'search/search'
+  get '/search', to: 'search#search'
+  resources :users, only: [:show, :edit, :update]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

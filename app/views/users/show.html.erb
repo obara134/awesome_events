@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <div class="card mb-4">
+    <div class="card-header " >
+      <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: "jpeg" %>
+      <h5><%= current_user.name %></h5>
+      </div>
+    <div class="card-text">
+      <p class="mt-3">自己紹介</p>
+      <p><%= @user.introduction %></p>
+    </div>
+  </div>
+
+    <p><%= link_to "プロフィール編集", edit_user_path(current_user), class: "  fas fa-user-cog edit_user_27083" %></p>
+</div>

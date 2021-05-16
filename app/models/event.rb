@@ -8,4 +8,8 @@ class Event < ApplicationRecord
  validates :start_at, presence: true
  validates :end_at, presence: true
 
+ def self.search_for(content, method)
+     Event.where('name LIKE ?', '%' + content + '%')
+ end
+
 end
