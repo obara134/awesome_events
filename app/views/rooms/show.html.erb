@@ -1,9 +1,9 @@
 <div class="container">
-  <h1>DM</h1>
 
-  <h4>参加者</h4>
   <% @user_rooms.each do |e| %>
-  　<h5><strong><%= link_to e.user.name, user_path(e.user.id) %>さん</strong></h5>
+    <% if e.user != current_user %>
+  　   <h5><strong><%= link_to e.user.name, user_path(e.user.id) %>さんとのチャット</strong></h5>
+  　<% end %>
   <% end %>
 
   <hr>

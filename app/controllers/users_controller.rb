@@ -4,12 +4,12 @@ class UsersController < ApplicationController
     @ticket_comments = @user.ticket_comments
 
     # 以下はコメント機能
-    @currentUserEntry=UserRoom.where(user_id: current_user.id)
-    @userEntry=UserRoom.where(user_id: @user.id)
+    @currentUserEntry = UserRoom.where(user_id: current_user.id)
+    @userEntry = UserRoom.where(user_id: @user.id)
     if @user.id != current_user.id
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
-          if cu.room_id == u.room_id then
+          if cu.room_id == u.room_id
             @isRoom = true
             @roomId = cu.room_id
           end
@@ -34,8 +34,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-     flash[:notice] = "プロフィールの更新が完了しました"
-     redirect_to user_path(@user)
+      flash[:notice] = "プロフィールの更新が完了しました"
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -43,8 +43,7 @@ class UsersController < ApplicationController
 
   private
 
-   def user_params
-     params.require(:user).permit(:name, :introduction, :profile_image)
-   end
+  def user_params
+    params.require(:user).permit(:name, :introduction, :profile_image)
+  end
 end
-

@@ -1,5 +1,4 @@
 class TicketCommentsController < ApplicationController
-
   def create
     event = Event.find(params[:event_id])
     comment = current_user.ticket_comments.new(ticket_comment_params)
@@ -21,5 +20,4 @@ class TicketCommentsController < ApplicationController
   def ticket_comment_params
     params.require(:ticket_comment).permit(:comment)
   end
-
 end

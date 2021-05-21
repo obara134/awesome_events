@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-
   def new
     @event = Event.new
   end
@@ -41,13 +40,9 @@ class EventsController < ApplicationController
     redirect_to root_path, notice: "削除しました"
   end
 
-
-
-
   private
 
   def event_params
     params.require(:event).permit(:name, :place, :introduction, :start_at, :end_at)
   end
-
 end
