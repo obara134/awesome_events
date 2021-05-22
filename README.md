@@ -19,11 +19,14 @@
 イベントの開催と開催予定のイベントを調べ参加の表明をするとき。
 
 ## 設計書
-アプリケーション定義書
+
+###アプリケーション定義書
 https://docs.google.com/spreadsheets/d/1Dk3MBb5I7g3KSkOSbLIFQc6C_fKf2Uhz0SGnYh4pMgM/edit#gid=0
-テーブル定義書
+
+###テーブル定義書
 https://docs.google.com/spreadsheets/d/1Z_iDV3QGFdZFXXuMzxmrW0Uwj7aP2jv09mVgtqhyuQU/edit#gid=0
-ER図
+
+###ER図
 https://app.diagrams.net/#G1kwGJ7eJ9bmFpuDSvPFGtDzXvUsSugKj4
 
 ## 機能一覧
