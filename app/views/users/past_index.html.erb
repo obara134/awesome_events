@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <% @user.events.each do |event| %>
+  <div class='card mt-4'>
+    <div class='card-header'>
+      <%= event.name %>
+    </div>
+    <div class='card-text'>
+      <%= event.introduction %>
+    </div>
+  </div>
+  <% end %>
+</div>

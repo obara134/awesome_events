@@ -41,6 +41,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def past_index
+    @user = User.find_by(id: params[:id])
+    @events = Event.where("end_at < ?", Time.zone.now).order(:start_at).page(params[:page])
+  end
+
+
   private
 
   def user_params
