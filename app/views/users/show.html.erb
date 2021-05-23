@@ -16,7 +16,9 @@
       <% if @user == current_user %>
         <h5 class='mt-3'>参加予定イベント一覧</h5>
         <% @user.ticket_comments.first(2).each do |ticket_comment| %>
-          <p> <%= link_to ticket_comment.event.name, event_path(ticket_comment.event) %></p>
+          <% if ticket_comment.event.end_at > Time.zone.now %>
+            <p> <%= link_to ticket_comment.event.name, event_path(ticket_comment.event) %></p>
+          <% end %>
         <% end %>
       <hr>
       <% end %>
