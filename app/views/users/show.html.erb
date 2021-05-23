@@ -20,17 +20,24 @@
         <% end %>
       <hr>
       <% end %>
-      <h5 class='mt-3'>開催予定イベント</h5>
+      <p class='mt-3'>
+        <span class='mt-3'>開催予定イベント</span>
+        <%= link_to 'すべて見る', controller: 'users', action: 'expect_index', id: @user.id %>
+      </p>
       <% @user.events.first(2).each do |event| %>
-        <p class='mt-3'><%= link_to event.name, event_path(event) %></p>
+        <% if event.start_at >= Time.zone.now %>
+          <p class='mt-3'><%= link_to event.name, event_path(event) %></p>
+        <% end %>
       <% end %>
       <hr>
       <p class='mt-3'>
         <span style='font-size: 20px'>過去の開催イベント</span>
-        <%= link_to 'すべて見る', users_past_index_path %>
+        <%= link_to 'すべて見る', controller: 'users', action: 'past_index', id: @user.id %>
       </p>
       <% @user.events.first(2).each do |event| %>
-        <p class='mt-3'><%= link_to event.name, event_path(event) %></p>
+        <% if event.end_at < Time.zone.now %>
+          <p class='mt-3'><%= link_to event.name, event_path(event) %></p>
+        <% end %>
       <% end %>
     </div>
   </div>

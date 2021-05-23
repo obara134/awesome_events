@@ -42,8 +42,11 @@ class UsersController < ApplicationController
   end
 
   def past_index
-    @user = User.find_by(id: params[:id])
-    @events = Event.where("end_at < ?", Time.zone.now).order(:start_at).page(params[:page])
+    @user = User.find(params[:id])
+  end
+
+  def expect_index
+    @user = User.find(params[:id])
   end
 
 

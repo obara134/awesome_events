@@ -4,7 +4,7 @@
       <%= flash[:notice] %>
     </h3>
   <% end %>
-  <h1 class="mt-5 mb-5"><%= @event.name %></h1>
+  <h1 class="mb-5"><%= @event.name %></h1>
   <div class="row">
     <div class="col-8">
       <div class="card mb-4">
@@ -35,17 +35,16 @@
         </div>
       </div>
     </div>
+
     <div class="col-4">
-
-
-      <% if @event.user == current_user %>
+      <!--イベントの主催者が現在のユーザー。かつ、イベントの開催日時が現在の日時以降-->
+      <% if @event.user == current_user && @event.start_at > Time.zone.now %>
         <%= link_to "イベントを編集する", edit_event_path(@event.id), class: "btn btn-info btn-lg btn-block" %>
         <%= link_to "イベントを削除する", event_path(@event.id), class: "btn btn-danger btn-lg btn-block ", method: :delete, "data-confirm" => "本当に削除しますか？" %>
       <% end %>
 
-
-      <!--現在のユーザーのコメントがない。サインインしている。-->
-      <% if user_signed_in? && @applied_user_ticket_comment.blank? %>
+      <!--現在のユーザーのコメントがない。サインインしている。イベントの開催日時が現在の日時以降-->
+      <% if user_signed_in? && @applied_user_ticket_comment.blank? && @event.start_at > Time.zone.now %>
         <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#createTicket">
           参加する
         </button>
@@ -82,7 +81,8 @@
             </div>
           </div>
         </div>
-      <% else %>
+      <!--イベントの開催日時が現在の日時以降-->
+      <% elsif @event.start_at > Time.zone.now %>
         <%= link_to "参加をキャンセルする", event_ticket_comment_path(@event), method: :delete, "data-confirm" => "本当にキャンセルしますか？", class: "btn btn-danger btn-block btn-lg" %>
       <% end %>
       <hr>
@@ -92,18 +92,37 @@
           <% @event.ticket_comments.each do |ticket_comment| %>
             <li class="list-group-item">
               <%= link_to user_path(ticket_comment.user) do %>
-              <%= attachment_image_tag ticket_comment.user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image.jpg", size:'40x40' %>
+                <%= attachment_image_tag ticket_comment.user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image.jpg", size:'40x40' %>
               <% end %>
               <%= link_to ticket_comment.user.name, user_path(ticket_comment.user) %> : <%= ticket_comment.comment %>
             </li>
-
           <% end %>
         </ul>
       </div>
 
-
-
-
+      <!--イベントの終了日時が現在の日時よりも前の場合-->
+      <% if @event.end_at < Time.zone.now %>
+        <div class="card mb-2">
+          <h5 class="card-header">コメント<%= @event.event_comments.count %>件</h5>
+          <ul class="list-group list-group-flush">
+            <% @event.event_comments.each do |event_comment| %>
+              <li class="list-group-item">
+                <%= event_comment.user.name %>:
+                <%= event_comment.comment %>
+                <% if event_comment.user == current_user %>
+                  <div class="comment-delete">
+                    <%= link_to "削除", event_event_comment_path(event_comment.event, event_comment), method: :delete %>
+                  </div>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <%= form_with(model:[@event,@event_comment], local: true) do |f| %>
+          <%= f.text_field :comment, class: "form-control", placeholder: "コメントをここに" %>
+          <%= f.submit "送信", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

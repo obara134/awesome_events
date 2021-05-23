@@ -1,7 +1,7 @@
 <div class="container">
   <h1><%= @user.name %>さんが過去に開催したイベント</h1>
   <% @user.events.each do |event| %>
-    <% if event.end_at < Time.zone.now %>
+    <% if event.start_at > Time.zone.now %>
       <div class='card mt-4'>
         <h5 class='card-header'>
           <%= link_to event.name, event_path(event) %>

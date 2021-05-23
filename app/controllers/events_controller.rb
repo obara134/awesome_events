@@ -16,6 +16,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @event_comment = EventComment.new
     @ticket_comment = TicketComment.new
     # @ticket_comment_destroy = TicketComment.find_by(event_id: params[:id])
     @applied_user_ticket_comment = TicketComment.where(event_id: params[:id], user_id: current_user.id)
