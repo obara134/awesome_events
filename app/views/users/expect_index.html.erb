@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%= @user.name %>さんが過去に開催したイベント</h1>
+  <h1><%= @user.name %>さんの開催予定イベント</h1>
   <% @user.events.each do |event| %>
     <% if event.start_at > Time.zone.now %>
       <div class='card mt-4'>
