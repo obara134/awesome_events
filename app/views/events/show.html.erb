@@ -44,48 +44,48 @@
       <% end %>
 
       <% if user_signed_in? %>
-      <!--現在のユーザーのコメントがない。サインインしている。イベントの開催日時が現在の日時以降-->
-      <% if user_signed_in? && @applied_user_ticket_comment.blank? && @event.start_at > Time.zone.now %>
-        <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#createTicket">
-          参加する
-        </button>
+        <!--現在のユーザーのコメントがない。サインインしている。イベントの開催日時が現在の日時以降-->
+        <% if user_signed_in? && @applied_user_ticket_comment.blank? && @event.start_at > Time.zone.now %>
+          <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#createTicket">
+            参加する
+          </button>
 
-        <div class="modal fade" id="createTicket">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">参加コメント</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+          <div class="modal fade" id="createTicket">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">参加コメント</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <%= form_with(model:[@event,@ticket_comment], local: true) do |f| %>
+                  <div class="modal-body">
+                    <% if @event.errors.any? %>
+                      <ul>
+                        <% @event.errors.full_messages.each do |message| %>
+                          <li style="color:red">
+                            <%= message %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                    <%= f.text_field :comment, class: "form-control", placeholder: "コメントをここに" %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                    <%= f.submit "送信", class: "btn btn-primary" %>
+                  </div>
+                <% end %>
+
               </div>
-
-              <%= form_with(model:[@event,@ticket_comment], local: true) do |f| %>
-                <div class="modal-body">
-                  <% if @event.errors.any? %>
-                    <ul>
-                      <% @event.errors.full_messages.each do |message| %>
-                        <li style="color:red">
-                          <%= message %>
-                        </li>
-                      <% end %>
-                    </ul>
-                  <% end %>
-                  <%= f.text_field :comment, class: "form-control", placeholder: "コメントをここに" %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                  <%= f.submit "送信", class: "btn btn-primary" %>
-                </div>
-              <% end %>
-
             </div>
           </div>
-        </div>
-      <!--イベントの開催日時が現在の日時以降-->
-      <% elsif @event.start_at > Time.zone.now %>
-        <%= link_to "参加をキャンセルする", event_ticket_comment_path(@event), method: :delete, "data-confirm" => "本当にキャンセルしますか？", class: "btn btn-danger btn-block btn-lg" %>
-      <% end %>
+        <!--イベントの開催日時が現在の日時以降-->
+        <% elsif @event.start_at > Time.zone.now %>
+          <%= link_to "参加をキャンセルする", event_ticket_comment_path(@event), method: :delete, "data-confirm" => "本当にキャンセルしますか？", class: "btn btn-danger btn-block btn-lg" %>
+        <% end %>
       <% end %>
       <hr>
       <div class="card mb-2">
