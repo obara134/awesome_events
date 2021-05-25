@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'search/search'
   devise_for :users
+  devise_scope :user do
+    get '/users', to: 'devise/registrations#new'
+  end
 
-  root to: "homes#top"
-  get "homes/about" => "homes#about"
+  root to: "events#index"
   resources :events do
     resources :ticket_comments, only: [:create, :destroy]
     resources :event_comments, only: [:create, :destroy]

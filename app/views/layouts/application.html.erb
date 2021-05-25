@@ -40,10 +40,7 @@
 
               <% else %>
                 <li class="nav-item">
-                  <%= link_to "Home", root_path, class: "nav-link text-light" %>
-                </li>
-                <li class="nav-iem">
-                  <%= link_to "About", homes_about_path, class: " nav-link text-light" %>
+                  <%= link_to "イベント一覧", root_path, class: "nav-link text-light" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-light' %>
@@ -57,6 +54,9 @@
         </div>
       </nav>
     </header>
+    <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
 
     <main class="mb-auto">
       <%= yield %>

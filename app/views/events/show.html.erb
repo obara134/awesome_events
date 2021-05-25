@@ -43,6 +43,7 @@
         <%= link_to "イベントを削除する", event_path(@event.id), class: "btn btn-danger btn-lg btn-block ", method: :delete, "data-confirm" => "本当に削除しますか？" %>
       <% end %>
 
+      <% if user_signed_in? %>
       <!--現在のユーザーのコメントがない。サインインしている。イベントの開催日時が現在の日時以降-->
       <% if user_signed_in? && @applied_user_ticket_comment.blank? && @event.start_at > Time.zone.now %>
         <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#createTicket">
@@ -84,6 +85,7 @@
       <!--イベントの開催日時が現在の日時以降-->
       <% elsif @event.start_at > Time.zone.now %>
         <%= link_to "参加をキャンセルする", event_ticket_comment_path(@event), method: :delete, "data-confirm" => "本当にキャンセルしますか？", class: "btn btn-danger btn-block btn-lg" %>
+      <% end %>
       <% end %>
       <hr>
       <div class="card mb-2">
