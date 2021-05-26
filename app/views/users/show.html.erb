@@ -1,9 +1,4 @@
 <div class="container mt-5">
-  <% if flash[:notice] %>
-    <p style="color:red" id="notice">
-      <%= flash[:notice] %>
-    </p>
-  <% end %>
   <div class="card mb-4">
     <div class="card-header " >
       <%= attachment_image_tag @user, :profile_image, :fill, 150, 150, format: "jpeg",fallback: "no_image.jpg" %>
@@ -48,6 +43,7 @@
   <% end %>
 
 <!--チャット機能-->
+
   <% if @user.id != current_user.id %>
     <% if @isRoom == true %>
       <p><a href="/rooms/<%= @roomId %>">チャットへ</a>

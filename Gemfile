@@ -73,3 +73,4 @@ gem 'rubocop-airbnb'
 group :production do
   gem 'mysql2'
 end
+gem 'pry-rails'

@@ -2,104 +2,59 @@
 
 require 'rails_helper'
 
-require 'rails_helper'
-
 describe '投稿のテスト' do
-  let!(:list) { create(:list, title:'hoge',body:'body') }
+  let!(:event) { create(:event,name:'hoge',introduction:'introduction') }
   describe 'トップ画面(top_path)のテスト' do
     before do
-      visit top_path
+      visit root_path
     end
     context '表示の確認' do
-      it 'トップ画面(top_path)に「ここはTopページです」が表示されているか' do
-        expect(page).to have_content 'ここはTopページです'
+      it 'トップ画面(root_path)に一覧ページへのリンクが表示されているか' do
+        expect(page).to have_link"", href: books_path
       end
-      it 'top_pathが"/top"であるか' do
-        expect(current_path).to eq('/top')
+      it 'root_pathが"/"であるか' do
+        expect(current_path).to eq('/')
       end
     end
   end
 
-  describe "投稿画面(todolists_new_path)のテスト" do
+  describe "一覧画面のテスト" do
     before do
-      visit todolists_new_path
+      visit events_path
     end
-    context '表示の確認' do
-      it 'todolists_new_pathが"/todolists/new"であるか' do
-        expect(current_path).to eq('/todolists/new')
+    context '一覧の表示とリンクの確認' do
+      it 'eventの一覧が表示されているか' do
+        expect(page).to have_selector 'card'
       end
-      it '投稿ボタンが表示されているか' do
-        expect(page).to have_button '投稿'
-      end
-    end
-    context '投稿処理のテスト' do
-      it '投稿後のリダイレクト先は正しいか' do
-        fill_in 'list[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'list[body]', with: Faker::Lorem.characters(number:20)
-        click_button '投稿'
-        expect(page).to have_current_path todolist_path(List.last)
+      it 'evntのタイトルと詳細が表示されているか' do
+        (1..5)each do |i|
+          Book.create(name:'hoge'+ i.to_s,introduction:'body'+i.to_s)
+        end
       end
     end
   end
 
-  describe "投稿一覧のテスト" do
+  describe '詳細画面のテスト' do
     before do
-      visit todolists_path
+      visit event_path(event)
     end
     context '表示の確認' do
-      it '投稿されたものが表示されているか' do
-        expect(page).to have_content list.title
-        expect(page).to have_link list.title
+      it 'イベントの名前と詳細が表示されること' do
+        expect(page).to have_content event.name
+        expect(page).to have_content event.introduction
       end
-    end
-  end
-
-  describe "詳細画面のテスト" do
-    before do
-      visit todolist_path(list)
-    end
-    context '表示の確認' do
-      it '削除リンクが存在しているか' do
-        expect(page).to have_link '削除'
-      end
-      it '編集リンクが存在しているか' do
-        expect(page).to have_link '編集'
+      it '編集リンクが表示される' do
+        edit_link = find_all('a')[0]
+        expect(edit_link.native.inner_text).to match(/edit/i)
       end
     end
     context 'リンクの遷移先の確認' do
-      it '編集の遷移先は編集画面か' do
+      it 'イベントを編集するの遷移先は編集画面か' do
         edit_link = find_all('a')[0]
         edit_link.click
-        expect(current_path).to eq('/todolists/' + list.id.to_s + '/edit')
-      end
-    end
-    context 'list削除のテスト' do
-      it 'listの削除' do
-        expect{ list.destroy }.to change{ List.count }.by(-1)
+        expect(current_path).to eq('/events/' + event.id.to_s + '/edit')
       end
     end
   end
 
-  describe '編集画面のテスト' do
-    before do
-      visit edit_todolist_path(list)
-    end
-    context '表示の確認' do
-      it '編集前のタイトルと本文がフォームに表示(セット)されている' do
-        expect(page).to have_field 'list[title]', with: list.title
-        expect(page).to have_field 'list[body]', with: list.body
-      end
-      it '保存ボタンが表示される' do
-        expect(page).to have_button '保存'
-      end
-    end
-    context '更新処理に関するテスト' do
-      it '更新後のリダイレクト先は正しいか' do
-        fill_in 'list[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'list[body]', with: Faker::Lorem.characters(number:20)
-        click_button '保存'
-        expect(page).to have_current_path todolist_path(list)
-      end
-    end
-  end
-end
+
