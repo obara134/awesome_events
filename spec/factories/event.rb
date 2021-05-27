@@ -3,8 +3,8 @@ FactoryBot.define do
     name { Faker::Lorem.characters(number:10) }
     introduction { Faker::Lorem.characters(number:30) }
     place { Faker::Lorem.characters(number:10) }
-    start_at { Faker::Lorem.characters(number:11) }
-    end_at { Faker::Lorem.characters(number: 11) }
+    start_at { '2021-05-02 15:00:00' }
+    end_at { '2021-05-02 15:00:00' }
     user
   end
 end
