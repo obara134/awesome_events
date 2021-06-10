@@ -41,11 +41,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def past_index
+  def past_events
     @user = User.find(params[:id])
   end
 
-  def expect_index
+  def future_events
     @user = User.find(params[:id])
   end
 

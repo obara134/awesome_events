@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   get 'search/search'
   get '/search', to: 'search#search'
   resources :users, only: [:show, :edit, :update]
-  get "/past_index/users/:id" => "users#past_index"
-  get "/expect_index/users/:id" => "users#expect_index"
+  get "/past_events/users/:id" => "users#past_events"
+  get "/future_events/users/:id" => "users#future_events"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
